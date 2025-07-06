@@ -1,8 +1,8 @@
--- Use E to fling yourself and Q to teleport back
+-- Use T to fling yourself and Y to teleport back
 
 local Config = {
-    FlingHotkey = "E",
-    TpBackHotkey = "Q",
+    FlingHotkey = "T",
+    TpBackHotkey = "Y",
     Permanent = false
 }
 
