@@ -20,3 +20,6 @@ MainTab:AddButton({
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/sc0t6/FScripts/refs/heads/main/Scripts/Self-Fling.lua",true))()
   	end    
 })
+
+end
+OrionLib:Init()
