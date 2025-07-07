@@ -19,8 +19,8 @@ local Window = Rayfield:CreateWindow({
       FileName = "config"
    },
 
-   KeySystem = false  -- KeySys = false means no key system so true means rayfields key system
-      KeySettings = {
+   KeySystem = false,
+   KeySettings = {
       Title = "Key System",
       Subtitle = "FScript Key System",
       Note = "Isn't available",
@@ -28,7 +28,8 @@ local Window = Rayfield:CreateWindow({
       SaveKey = true,
       GrabKeyFromSite = false,
       Key = {"robinho"}
-}})
+   }
+})
 
 -- Notifier
 
@@ -54,14 +55,14 @@ local Label = MainTab:CreateLabel("Menu Keybind: L")-- Label for menu
 local SelfFlingButton = MainTab:CreateButton({
    Name = "Self-Fling",
    Callback = function(v)
-   v = loadstring(game:HttpGet("https://raw.githubusercontent.com/sc0t6/FScripts/refs/heads/main/Scripts/Self-Fling.lua",true))() -- Script for Self Fling
+   v = loadstring(game:HttpGet("https://raw.githubusercontent.com/sc0t6/FScripts/refs/heads/main/Scripts/Self-Fling.lua"))() -- Script for Self Fling
    end,
 })
 
 local WallBtn = MainTab:CreateButton({
    Name = "Walk On Walls", -- Walking on walls
-   Callback = function(l)
-   l = loadstring(game:HttpGet("loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()",true))()
+   Callback = function(f)
+   f = loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
    end,
 })
 
