@@ -1,25 +1,25 @@
 -- GUI Library
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))() -- GUI Loader dont remove
 
 -- Rayfield Window
 
 local Window = Rayfield:CreateWindow({
    Name = "FScripts",
-   Icon = 111948200153431,
+   Icon = 111948200153431, -- Icon for the window
    LoadingTitle = "FScripts",
    LoadingSubtitle = "by scot",
-   ShowText = "FS",
-   Theme = "Default",
+   ShowText = "FS", -- Mobile Menu TXT
+   Theme = "Default", -- Custom Theme
 
    ToggleUIKeybind = "L",
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = FScripts, -- Create a custom folder for your hub/game
+      FolderName = FScripts, -- Config Folder
       FileName = "config"
    },
 
-   KeySystem = false,
+   KeySystem = false  -- KeySys = false means no key system so true means rayfields key system
       KeySettings = {
       Title = "Key System",
       Subtitle = "FScript Key System",
@@ -41,29 +41,38 @@ Rayfield:Notify({
 
 -- Tabs
 
-local MiscTab = Window:CreateTab("Misc", 12120687742)
+local MiscTab = Window:CreateTab("Misc", 12120687742) -- Misc Tab
 
-local MainTab = Window:CreateTab("PC Scripts", 12684119225)
+local MainTab = Window:CreateTab("PC Scripts", 12684119225) -- PC Scripts Tab
 
 -- Labels
 
-local Label = MainTab:CreateLabel("Menu Keybind: L")
+local Label = MainTab:CreateLabel("Menu Keybind: L")-- Label for menu
 
 -- Buttons
 
 local SelfFlingButton = MainTab:CreateButton({
    Name = "Self-Fling",
    Callback = function(v)
-   v = loadstring(game:HttpGet("https://raw.githubusercontent.com/sc0t6/FScripts/refs/heads/main/Scripts/Self-Fling.lua",true))()
+   v = loadstring(game:HttpGet("https://raw.githubusercontent.com/sc0t6/FScripts/refs/heads/main/Scripts/Self-Fling.lua",true))() -- Script for Self Fling
    end,
 })
 
-local PrintBtn = MainTab:CreateButton({
-   Name = "test print",
-   Callback = function(b)
-   b = print('hello')
+local WallBtn = MainTab:CreateButton({
+   Name = "Walk On Walls", -- Walking on walls
+   Callback = function(l)
+   l = loadstring(game:HttpGet("loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()",true))()
    end,
 })
+
+local WallBtn = MainTab:CreateButton({
+   Name = "Walk On Walls",
+   Callback = function(l)
+   l = loadstring(game:HttpGet("loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()",true))()
+   end,
+})
+
+-- Unloads the menu
 
 local UnloadBtn = MiscTab:CreateButton({
    Name = "Unload",
