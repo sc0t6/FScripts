@@ -65,10 +65,10 @@ local WallBtn = MainTab:CreateButton({
    end,
 })
 
-local WallBtn = MainTab:CreateButton({
-   Name = "Walk On Walls",
-   Callback = function(l)
-   l = loadstring(game:HttpGet("loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()",true))()
+local printBtn = MainTab:CreateButton({
+   Name = "Print to see if it executed",
+   Callback = function(g)
+   g = print("Works")
    end,
 })
 
