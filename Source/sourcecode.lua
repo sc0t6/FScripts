@@ -200,6 +200,8 @@ local HipHeight = MiscTab:CreateSlider({
     end,
 })
 
+local AntiAFKConnection
+
 local AntiAFKToggle = Tab:CreateToggle({
    Name = "Anti-AFK",
    CurrentValue = false,
@@ -209,19 +211,18 @@ local AntiAFKToggle = Tab:CreateToggle({
        
        if enabled then
            local player = game:GetService("Players").LocalPlayer
-           local connection
-           connection = player.Idled:Connect(function()
+           AntiAFKConnection = player.Idled:Connect(function()
                game:GetService("VirtualUser"):ClickButton2(Vector2.new())
            end)
-           AntiAFKToggle.Connection = connection
        else
-           if AntiAFKToggle.Connection then
-               AntiAFKToggle.Connection:Disconnect()
-               AntiAFKToggle.Connection = nil
+           if AntiAFKConnection then
+               AntiAFKConnection:Disconnect()
+               AntiAFKConnection = nil
            end
        end
    end,
-})   
+})
+  
 
 
 
