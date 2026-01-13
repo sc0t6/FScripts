@@ -132,11 +132,11 @@ local NightDayButton = MiscTab:CreateButton({
 })
 
 local animbtn = MainTab:CreateButton({
-      Name = "Animatrix"
+      Name = "Animatrix",
       Callback = function(vx)
       vx = loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/aqua-hub-is-a-skid-lol/refs/heads/main/animatrix"))()
       end,
-      ])
+   })
 
          
 local FOVSlider = Tab:CreateSlider({
