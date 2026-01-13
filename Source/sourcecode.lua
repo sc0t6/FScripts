@@ -221,6 +221,30 @@ local AntiAFKToggle = MiscTab:CreateToggle({
    end,
 })
 
+local AutoParkourToggle = MobileTab:CreateToggle({
+    Name = "Auto Parkour",
+    CurrentValue = false,
+    Flag = "AutoParkourToggle",
+    Callback = function(Value)
+        if Value then
+            local player = game:GetService("Players").LocalPlayer
+            local RunService = game:GetService("RunService")
+            local character = player.Character or player.CharacterAdded:Wait()
+            local humanoid = character:WaitForChild("Humanoid")
+            
+            AntiAFKConnection = RunService.RenderStepped:Connect(function()
+                if humanoid and humanoid.FloorMaterial == Enum.Material.Air then
+                    humanoid.Jump = true
+                end
+            end)
+        else
+            if AntiAFKConnection then
+                AntiAFKConnection:Disconnect()
+                AntiAFKConnection = nil
+            end
+        end
+    end,
+})
 
 -- Unloads the menu
 
