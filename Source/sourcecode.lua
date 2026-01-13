@@ -221,31 +221,51 @@ local AntiAFKToggle = MiscTab:CreateToggle({
    end,
 })
 
-local AutoParkourToggle = MobileTab:CreateToggle({
+local AutoParkourConnection
+
+local AutoParkourToggle = MiscTab:CreateToggle({
     Name = "Auto Parkour",
     CurrentValue = false,
     Flag = "AutoParkourToggle",
     Callback = function(Value)
         if Value then
-            local player = game:GetService("Players").LocalPlayer
-            local RunService = game:GetService("RunService")
-            local character = player.Character or player.CharacterAdded:Wait()
-            local humanoid = character:WaitForChild("Humanoid")
-            
-            AntiAFKConnection = RunService.RenderStepped:Connect(function()
-                if humanoid and humanoid.FloorMaterial == Enum.Material.Air then
-                    humanoid.Jump = true
+            AutoParkourConnection = game:GetService("RunService").RenderStepped:Connect(function()
+                local player = game.Players.LocalPlayer
+                local char = player.Character
+                if not char then return end
+
+                local hrp = char:FindFirstChild("HumanoidRootPart")
+                local hum = char:FindFirstChild("Humanoid")
+                if not hrp or not hum then return end
+
+                -- Forward movement
+                hum:Move(Vector3.new(0,0,1), false) -- pushes forward
+
+                -- Edge check using raycast
+                local rayOrigin = hrp.Position
+                local rayDirection = Vector3.new(0, -3, 0) -- 3 studs down
+                local raycastParams = RaycastParams.new()
+                raycastParams.FilterDescendantsInstances = {char}
+                raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+
+                local rayResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+
+                -- Jump if no floor detected
+                if not rayResult then
+                    if hum.FloorMaterial == Enum.Material.Air then
+                        hum.Jump = true
+                    end
                 end
             end)
         else
-            if AntiAFKConnection then
-                AntiAFKConnection:Disconnect()
-                AntiAFKConnection = nil
+            -- Disconnect the loop when toggle is off
+            if AutoParkourConnection then
+                AutoParkourConnection:Disconnect()
+                AutoParkourConnection = nil
             end
         end
     end,
 })
-
 -- Unloads the menu
 
 local UnloadBtn = MiscTab:CreateButton({
