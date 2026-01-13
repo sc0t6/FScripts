@@ -223,6 +223,10 @@ local AntiAFKToggle = MiscTab:CreateToggle({
 
 local AutoParkourConnection
 
+local AUTO_EDGE_DISTANCE = 3    
+local CEILING_CHECK_DISTANCE = 4 
+local MOVE_SPEED = 1          
+
 local AutoParkourToggle = MiscTab:CreateToggle({
     Name = "Auto Parkour",
     CurrentValue = false,
@@ -238,27 +242,29 @@ local AutoParkourToggle = MiscTab:CreateToggle({
                 local hum = char:FindFirstChild("Humanoid")
                 if not hrp or not hum then return end
 
-                -- Forward movement
-                hum:Move(Vector3.new(0,0,1), false) -- pushes forward
+                hum:Move(Vector3.new(0,0,MOVE_SPEED), false)
 
-                -- Edge check using raycast
-                local rayOrigin = hrp.Position
-                local rayDirection = Vector3.new(0, -3, 0) -- 3 studs down
-                local raycastParams = RaycastParams.new()
-                raycastParams.FilterDescendantsInstances = {char}
-                raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+                local downOrigin = hrp.Position
+                local downDirection = Vector3.new(0, -AUTO_EDGE_DISTANCE, 0)
+                local downParams = RaycastParams.new()
+                downParams.FilterDescendantsInstances = {char}
+                downParams.FilterType = Enum.RaycastFilterType.Blacklist
+                local floorRay = workspace:Raycast(downOrigin, downDirection, downParams)
 
-                local rayResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+                if not floorRay then
+                    local upOrigin = hrp.Position
+                    local upDirection = Vector3.new(0, CEILING_CHECK_DISTANCE, 0)
+                    local upParams = RaycastParams.new()
+                    upParams.FilterDescendantsInstances = {char}
+                    upParams.FilterType = Enum.RaycastFilterType.Blacklist
+                    local ceilingRay = workspace:Raycast(upOrigin, upDirection, upParams)
 
-                -- Jump if no floor detected
-                if not rayResult then
-                    if hum.FloorMaterial == Enum.Material.Air then
+                    if not ceilingRay then
                         hum.Jump = true
                     end
                 end
             end)
         else
-            -- Disconnect the loop when toggle is off
             if AutoParkourConnection then
                 AutoParkourConnection:Disconnect()
                 AutoParkourConnection = nil
@@ -266,6 +272,7 @@ local AutoParkourToggle = MiscTab:CreateToggle({
         end
     end,
 })
+
 -- Unloads the menu
 
 local UnloadBtn = MiscTab:CreateButton({
