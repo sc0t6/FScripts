@@ -131,8 +131,16 @@ local NightDayButton = MiscTab:CreateButton({
    end,
 })
 
+local animbtn = MainTab:CreateButton({
+      Name = "Animatrix"
+      Callback = function(vx)
+      vx = loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/aqua-hub-is-a-skid-lol/refs/heads/main/animatrix"))()
+      end,
+      ])
+
+         
 local FOVSlider = Tab:CreateSlider({
-   Name = "Field of View",
+   Name = "Field of View (test)",
    Range = {0, 100},
    Increment = 10,
    Suffix = "FOV",
