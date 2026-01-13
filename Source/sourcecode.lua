@@ -202,14 +202,12 @@ local HipHeight = MiscTab:CreateSlider({
 
 local AntiAFKConnection
 
-local AntiAFKToggle = MiscTab:CreateToggle({
+local AntiAFKToggle = Tab:CreateToggle({
    Name = "Anti-AFK",
    CurrentValue = false,
    Flag = "AntiAFKToggle",
-   Callback = function()
-       local enabled = AntiAFKToggle:Get()
-       
-       if enabled then
+   Callback = function(Value)
+       if Value then
            local player = game:GetService("Players").LocalPlayer
            AntiAFKConnection = player.Idled:Connect(function()
                game:GetService("VirtualUser"):ClickButton2(Vector2.new())
@@ -222,8 +220,6 @@ local AntiAFKToggle = MiscTab:CreateToggle({
        end
    end,
 })
-  
-
 
 
 -- Unloads the menu
