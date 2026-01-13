@@ -117,6 +117,13 @@ local dexButton = MainTab:CreateButton({
    end,
 })
 
+local flipButton = MainTab:CreateButton({
+   Name = "Flip (E,R,T)",
+   Callback = function(c)
+   c = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Backflip-Script-18595"))()
+   end,
+})
+
 local flashButton = MainTab:CreateButton({
    Name = "Flashback",
    Callback = function(v)
@@ -150,6 +157,34 @@ local SliderFOV = MiscTab:CreateSlider({
         workspace.CurrentCamera.FieldOfView = Value
     end,
 })
+
+local WSSlider = MiscTab:CreateSlider({
+    Name = "WalkSpeed",
+    Range = {0, 100},
+    Increment = 1,
+    CurrentValue = 16,
+    Flag = "WS",
+    Callback = function(Value)
+            local char = game.Players.LocalPlayer.Character
+    local hum = char and char:FindFirstChild("Humanoid")
+    if hum then
+        hum.WalkSpeed = Value
+    end
+         print(Value)
+    end,
+})
+
+local JPSlider = MiscTab:CreateSlider({
+    Name = "JumpPower",
+    Range = {0, 200},
+    Increment = 1,
+    CurrentValue = 50,
+    Flag = "JP",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+    end,
+})
+
 
 -- Unloads the menu
 
