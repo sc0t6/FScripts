@@ -139,16 +139,16 @@ local animbtn = MainTab:CreateButton({
    })
 
          
-local FOVSlider = Tab:CreateSlider({
-   Name = "Field of View (test)",
-   Range = {0, 100},
-   Increment = 1,
-   Suffix = "FOV",
-   CurrentValue = 60,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-         workspace.CurrentCamera.FieldOfView = Value
-   end,
+local MiscTab:CreateSlider({
+    Name = "Field of View",
+    Range = {0, 120},
+    Increment = 1,
+    Suffix = "FOV",
+    CurrentValue = 60,
+    Flag = "FOVSlider",
+    Callback = function(Value)
+        workspace.CurrentCamera.FieldOfView = Value
+    end,
 })
 
 -- Unloads the menu
