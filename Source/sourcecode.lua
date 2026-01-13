@@ -222,9 +222,12 @@ local AntiAFKToggle = MiscTab:CreateToggle({
 })
 
 local AutoJumpConnection
+local JUMP_DEBOUNCE = false
 
-local AUTO_EDGE_DISTANCE = 3 
-local CEILING_CHECK_DISTANCE = 4 
+local AUTO_EDGE_DISTANCE = 3
+local CEILING_CHECK_DISTANCE = 4
+local MIN_JUMP_DELAY = 0.08
+local MAX_JUMP_DELAY = 0.15
 
 local AutoJumpToggle = MobileTab:CreateToggle({
     Name = "Auto Jump",
@@ -240,7 +243,10 @@ local AutoJumpToggle = MobileTab:CreateToggle({
                 local hrp = char:FindFirstChild("HumanoidRootPart")
                 local hum = char:FindFirstChild("Humanoid")
                 if not hrp or not hum then return end
-                  
+
+                if hum:GetState() ~= Enum.HumanoidStateType.Running and hum:GetState() ~= Enum.HumanoidStateType.Landed then return end
+                if JUMP_DEBOUNCE then return end
+
                 local downOrigin = hrp.Position
                 local downDirection = Vector3.new(0, -AUTO_EDGE_DISTANCE, 0)
                 local downParams = RaycastParams.new()
@@ -257,7 +263,11 @@ local AutoJumpToggle = MobileTab:CreateToggle({
                     local ceilingRay = workspace:Raycast(upOrigin, upDirection, upParams)
 
                     if not ceilingRay then
+                        JUMP_DEBOUNCE = true
                         hum.Jump = true
+                        task.delay(math.random(MIN_JUMP_DELAY*100, MAX_JUMP_DELAY*100)/100, function()
+                            JUMP_DEBOUNCE = false
+                        end)
                     end
                 end
             end)
@@ -269,6 +279,7 @@ local AutoJumpToggle = MobileTab:CreateToggle({
         end
     end,
 })
+
 
 -- Unloads the menu
 
