@@ -15,7 +15,7 @@ local Window = Rayfield:CreateWindow({
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = FScripts, -- Config Folder
+      FolderName = "FScripts", -- Config Folder
       FileName = "config"
    },
 
