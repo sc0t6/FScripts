@@ -185,6 +185,45 @@ local JPSlider = MiscTab:CreateSlider({
     end,
 })
 
+local HipHeight = MiscTab:CreateSlider({
+    Name = "HipHeight",
+    Range = {0, 20},
+    Increment = 0.5,
+    CurrentValue = 2,
+    Flag = "HipHeight",
+    Callback = function(Value)
+        local char = game.Players.LocalPlayer.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+        if hum then
+            hum.HipHeight = Value
+        end
+    end,
+})
+
+local AntiAFKToggle = Tab:CreateToggle({
+   Name = "Anti-AFK",
+   CurrentValue = false,
+   Flag = "AntiAFKToggle",
+   Callback = function()
+       local enabled = AntiAFKToggle:Get()
+       
+       if enabled then
+           local player = game:GetService("Players").LocalPlayer
+           local connection
+           connection = player.Idled:Connect(function()
+               game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+           end)
+           AntiAFKToggle.Connection = connection
+       else
+           if AntiAFKToggle.Connection then
+               AntiAFKToggle.Connection:Disconnect()
+               AntiAFKToggle.Connection = nil
+           end
+       end
+   end,
+})   
+
+
 
 -- Unloads the menu
 
