@@ -139,7 +139,7 @@ local animbtn = MainTab:CreateButton({
    })
 
          
-local MiscTab:CreateSlider({
+local SliderFOV = MiscTab:CreateSlider({
     Name = "Field of View",
     Range = {0, 120},
     Increment = 1,
