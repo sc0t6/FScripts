@@ -221,19 +221,18 @@ local AntiAFKToggle = MiscTab:CreateToggle({
    end,
 })
 
-local AutoParkourConnection
+local AutoJumpConnection
 
-local AUTO_EDGE_DISTANCE = 3    
+local AUTO_EDGE_DISTANCE = 3 
 local CEILING_CHECK_DISTANCE = 4 
-local MOVE_SPEED = 1          
 
-local AutoParkourToggle = MiscTab:CreateToggle({
-    Name = "Auto Parkour",
+local AutoJumpToggle = MobileTab:CreateToggle({
+    Name = "Auto Jump",
     CurrentValue = false,
-    Flag = "AutoParkourToggle",
+    Flag = "AutoJumpToggle",
     Callback = function(Value)
         if Value then
-            AutoParkourConnection = game:GetService("RunService").RenderStepped:Connect(function()
+            AutoJumpConnection = game:GetService("RunService").RenderStepped:Connect(function()
                 local player = game.Players.LocalPlayer
                 local char = player.Character
                 if not char then return end
@@ -241,9 +240,7 @@ local AutoParkourToggle = MiscTab:CreateToggle({
                 local hrp = char:FindFirstChild("HumanoidRootPart")
                 local hum = char:FindFirstChild("Humanoid")
                 if not hrp or not hum then return end
-
-                hum:Move(Vector3.new(0,0,MOVE_SPEED), false)
-
+                  
                 local downOrigin = hrp.Position
                 local downDirection = Vector3.new(0, -AUTO_EDGE_DISTANCE, 0)
                 local downParams = RaycastParams.new()
@@ -265,9 +262,9 @@ local AutoParkourToggle = MiscTab:CreateToggle({
                 end
             end)
         else
-            if AutoParkourConnection then
-                AutoParkourConnection:Disconnect()
-                AutoParkourConnection = nil
+            if AutoJumpConnection then
+                AutoJumpConnection:Disconnect()
+                AutoJumpConnection = nil
             end
         end
     end,
