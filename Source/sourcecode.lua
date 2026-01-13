@@ -225,10 +225,14 @@ local AntiAFKToggle = MiscTab:CreateToggle({
 -- Unloads the menu
 
 local UnloadBtn = MiscTab:CreateButton({
-   Name = "Unload",
-   Callback = function(l)
-   l = Rayfield:Destroy()
-   end,
+    Name = "Unload",
+    Callback = function()
+        if AntiAFKConnection then
+            AntiAFKConnection:Disconnect()
+            AntiAFKConnection = nil
+        end
+        Rayfield:Destroy()
+    end,
 })
 
 Rayfield:LoadConfiguration()
