@@ -202,7 +202,7 @@ local HipHeight = MiscTab:CreateSlider({
 
 local AntiAFKConnection
 
-local AntiAFKToggle = Tab:CreateToggle({
+local AntiAFKToggle = MiscTab:CreateToggle({
    Name = "Anti-AFK",
    CurrentValue = false,
    Flag = "AntiAFKToggle",
